@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تشغيل الموقع</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    #offline {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #fff;
+      color: #000;
+      text-align: center;
+      padding-top: 40%;
+    }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      display: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="offline">
+  <h2>🚫 التطبيق يحتاج اتصال بالإنترنت</h2>
+  <p>من فضلك اتصل بالنت ثم أعد المحاولة</p>
+  <button onclick="location.reload()">🔁 إعادة المحاولة</button>
+</div>
+
+<iframe id="main" src=""></iframe>
+
+<script>
+  const online = navigator.onLine;
+  const iframe = document.getElementById("main");
+  const offlineDiv = document.getElementById("offline");
+
+  if (online) {
+    iframe.src = "https://9000-firebase-studio-1751281567038.cluster-axf5tvtfjjfekvhwxwkkkzsk2y.cloudworkstations.dev";
+    iframe.style.display = "block";
+  } else {
+    offlineDiv.style.display = "block";
+  }
+
+  // يتابع حالة الاتصال إذا انقطع فجأة
+  window.addEventListener('offline', () => {
+    iframe.style.display = "none";
+    offlineDiv.style.display = "block";
+  });
+</script>
+
+</body>
+</html>
